@@ -26,8 +26,9 @@ static int	format_spcifier(int chars, va_list args)
 		return (ft_putnbr(va_arg(args, unsigned int)));
 	else if (chars == 'x' || chars == 'X')
 		return (ft_putnbr_hex(va_arg(args, unsigned int), chars));
-	else
-		return (ft_putchar(chars));
+	else if (chars == '%')
+		return (ft_putchar('%'));
+	return (0);
 }
 
 int	ft_printf(const char *format, ...)
@@ -45,7 +46,7 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%' && format[i + 1] != '\0')
 		{
-			count += format_spcifier((format[i + 1]), args);
+			count += format_spcifier(format[i + 1], args);
 			i++;
 		}
 		else if (format[i] != '%')
